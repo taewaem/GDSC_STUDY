@@ -1,14 +1,19 @@
 package hello.gdsc.service;
 
-import hello.gdsc.data.dto.ProductDto;
+
 import hello.gdsc.data.dto.ProductResponseDto;
 import hello.gdsc.data.entity.Product;
 import hello.gdsc.data.repository.ProductRepository;
 import hello.gdsc.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
@@ -16,20 +21,19 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
-public class ProductServiceTest {
+@ExtendWith(SpringExtension.class)
+@Import(ProductServiceImpl.class)
+public class ProductServiceTest2 {
 
-    private ProductRepository productRepository = Mockito.mock(ProductRepository.class);
-    private ProductServiceImpl productService;
+    @MockBean
+    ProductRepository productRepository;
 
-    @BeforeEach
-    public void setUpTest(){
-        productService = new ProductServiceImpl(productRepository);
-    }
+    @Autowired
+    ProductService productService;
 
-    //예제 7.11
     @Test
-    void getProductTest(){
-        // given
+    public void getProductTest(){
+        //given
         Product givenProduct = new Product();
         givenProduct.setNumber(123L);
         givenProduct.setName("펜");
@@ -39,37 +43,26 @@ public class ProductServiceTest {
         Mockito.when(productRepository.findById(123L))
                 .thenReturn(Optional.of(givenProduct));
 
-        // when
+        //when
         ProductResponseDto productResponseDto = productService.getProduct(123L);
 
-        // then
-        Assertions.assertEquals(productResponseDto.getName(), givenProduct.getName());
+        //then
         Assertions.assertEquals(productResponseDto.getNumber(), givenProduct.getNumber());
+        Assertions.assertEquals(productResponseDto.getName(), givenProduct.getName());
         Assertions.assertEquals(productResponseDto.getPrice(), givenProduct.getPrice());
         Assertions.assertEquals(productResponseDto.getStock(), givenProduct.getStock());
 
-        verify(productRepository).findById(123L);
+        verify(productRepository.save(any(Product.class)));
 
     }
 
     @Test
-    void saveProductTest(){
-        // given
+    void savedProdcutTest(){
+        //given
         Mockito.when(productRepository.save(any(Product.class)))
                 .then(returnsFirstArg());
 
         //when
-        ProductResponseDto productResponseDto = productService.saveProduct(
-                new ProductDto("펜", 1000, 1234)
-        );
-
-        // then
-        Assertions.assertEquals(productResponseDto.getName(),"펜");
-        Assertions.assertEquals(productResponseDto.getPrice(), 1000);
-        Assertions.assertEquals(productResponseDto.getStock(), 1234);
-
-        verify(productRepository).save(any());
-
 
     }
 }

@@ -31,4 +31,5 @@ public class Product {
     private Integer stock;
     private LocalDateTime createAt;
     private LocalDateTime updatedAt;
+
 }
