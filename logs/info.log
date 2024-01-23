@@ -637,20 +637,6 @@ Caused by: java.sql.SQLInvalidAuthorizationSpecException: Could not connect to a
 	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
 	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:358)
 	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:477)
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:560)
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
-	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
-	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:180)
-	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:43)
-	... 37 common frames omitted
-Caused by: java.sql.SQLException: GSS-API authentication exception
-	at org.mariadb.jdbc.internal.com.send.authentication.gssapi.StandardGssapiAuthentication.authenticate(StandardGssapiAuthentication.java:169)
-	at org.mariadb.jdbc.internal.com.send.authentication.SendGssApiAuthPacket.process(SendGssApiAuthPacket.java:133)
-	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.authenticationHandler(AbstractConnectProtocol.java:752)
-	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.createConnection(AbstractConnectProtocol.java:553)
-	at org.mariadb.jdbc.internal.protocol.AbstractConnectProtocol.connectWithoutProxy(AbstractConnectProtocol.java:1387)
 	... 50 common frames omitted
 Caused by: javax.security.auth.login.LoginException: Unable to obtain Principal Name for authentication 
 	at jdk.security.auth/com.sun.security.auth.module.Krb5LoginModule.promptForName(Krb5LoginModule.java:826)
