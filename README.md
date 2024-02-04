@@ -1,2 +1,1 @@
-"# GDSC_STUDY" 
-"# GDSC_STUDY" 
+GDSC_STUDY
